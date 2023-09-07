@@ -27,7 +27,8 @@ from hysprint_s import (IRIS_2038_HZBGloveBoxes_Pero4SOSIMStorage_JVmeasurement,
                         HySprint_108_HyVap_JVmeasurement,
                         HySprint_Measurement,
                         IRIS_2038_HZBGloveBoxes_Pero2Spincoater_UVvis,
-                        HySprint_1xx_nobox_UVvismeasurement)
+                        HySprint_1xx_nobox_UVvismeasurement,
+                        HySprint_trSPVmeasurement)
 
 from nomad.datamodel.metainfo.eln import SolarCellEQE
 
@@ -64,6 +65,8 @@ class HySprintParser(MatchingParser):
         entry = HySprint_Measurement()
         if mainfile_split[-1] == "txt" and mainfile_split[-2] == "jv":
             entry = HySprint_108_HyVap_JVmeasurement()
+        if mainfile_split[-1] == "txt" and mainfile_split[-2] == "spv":
+            entry = HySprint_trSPVmeasurement()
         if mainfile_split[-1] == "txt" and mainfile_split[-2] == "eqe":
             header_lines = 9
             sc_eqe = SolarCellEQE()

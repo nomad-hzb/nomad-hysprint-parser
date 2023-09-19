@@ -19,15 +19,12 @@
 from nomad.datamodel import EntryArchive
 from nomad.parsing import MatchingParser
 
-from hysprint_s import (IRIS_2038_HZBGloveBoxes_Pero4SOSIMStorage_JVmeasurement,
+from hysprint_s import (HySprint_JVmeasurement,
                         HySprint_TimeResolvedPhotoluminescence,
-                        HySprint_108_HyVap_EQEmeasurement,
-                        HySprint_108_HyPrint_PLmeasurement,
-                        IRIS_2038_HZBGloveBoxes_Pero2Spincoater_PLMeasurment,
-                        HySprint_108_HyVap_JVmeasurement,
+                        HySprint_EQEmeasurement,
+                        HySprint_PLmeasurement,
                         HySprint_Measurement,
-                        IRIS_2038_HZBGloveBoxes_Pero2Spincoater_UVvis,
-                        HySprint_1xx_nobox_UVvismeasurement,
+                        HySprint_UVvismeasurement,
                         HySprint_trSPVmeasurement)
 
 from nomad.datamodel.metainfo.eln import SolarCellEQE
@@ -64,7 +61,7 @@ class HySprintParser(MatchingParser):
             notes = mainfile_split[1]
         entry = HySprint_Measurement()
         if mainfile_split[-1] == "txt" and mainfile_split[-2] == "jv":
-            entry = HySprint_108_HyVap_JVmeasurement()
+            entry = HySprint_JVmeasurement()
         if mainfile_split[-1] == "txt" and mainfile_split[-2] == "spv":
             entry = HySprint_trSPVmeasurement()
         if mainfile_split[-1] == "txt" and mainfile_split[-2] == "eqe":
@@ -72,14 +69,10 @@ class HySprintParser(MatchingParser):
             sc_eqe = SolarCellEQE()
             sc_eqe.eqe_data_file = os.path.basename(mainfile)
             sc_eqe.header_lines = header_lines
-            entry = HySprint_108_HyVap_EQEmeasurement()
+            entry = HySprint_EQEmeasurement()
             entry.eqe_data = [sc_eqe]
         if mainfile_split[-1] in ["txt", "csv"] and mainfile_split[-2] == "pl":
-            entry = HySprint_108_HyPrint_PLmeasurement()
-        if mainfile_split[-1] in ["txt", "csv"] and mainfile_split[-2] == "pli":
-            entry = IRIS_2038_HZBGloveBoxes_Pero2Spincoater_PLMeasurment()
-        if mainfile_split[-1] == "txt" and mainfile_split[-2] == "jvi":
-            entry = IRIS_2038_HZBGloveBoxes_Pero4SOSIMStorage_JVmeasurement()
+            entry = HySprint_PLmeasurement()
 
         archive.metadata.entry_name = os.path.basename(mainfile)
         search_id = mainfile_split[0]

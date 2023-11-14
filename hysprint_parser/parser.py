@@ -25,7 +25,8 @@ from hysprint_s import (HySprint_JVmeasurement,
                         HySprint_PLmeasurement,
                         HySprint_Measurement,
                         HySprint_UVvismeasurement,
-                        HySprint_trSPVmeasurement)
+                        HySprint_trSPVmeasurement,
+                        HZB_EnvironmentMeasurement)
 
 from nomad.datamodel.metainfo.eln import SolarCellEQE
 
@@ -73,6 +74,8 @@ class HySprintParser(MatchingParser):
             entry.eqe_data = [sc_eqe]
         if mainfile_split[-1] in ["txt", "csv"] and mainfile_split[-2] == "pl":
             entry = HySprint_PLmeasurement()
+        if mainfile_split[-1] in ["txt"] and mainfile_split[-2] == "env":
+            entry = HZB_EnvironmentMeasurement()
 
         archive.metadata.entry_name = os.path.basename(mainfile)
         search_id = mainfile_split[0]

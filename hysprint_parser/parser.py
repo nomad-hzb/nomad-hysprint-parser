@@ -72,7 +72,7 @@ class HySprintParser(MatchingParser):
             sc_eqe.header_lines = header_lines
             entry = HySprint_EQEmeasurement()
             entry.eqe_data = [sc_eqe]
-        if mainfile_split[-1] in ["txt", "csv"] and mainfile_split[-2] == "pl":
+        if mainfile_split[-2] == "pl":
             entry = HySprint_PLmeasurement()
         if mainfile_split[-1] in ["txt"] and mainfile_split[-2] == "env":
             entry = HZB_EnvironmentMeasurement()

@@ -76,6 +76,7 @@ class HySprintParser(MatchingParser):
             entry = HySprint_PLmeasurement()
         if mainfile_split[-2] == "uvvis":
             entry = HySprint_UVvismeasurement()
+            entry.data_file = [os.path.basename(mainfile)]
         if mainfile_split[-1] in ["txt"] and mainfile_split[-2] == "env":
             entry = HZB_EnvironmentMeasurement()
 
@@ -85,7 +86,7 @@ class HySprintParser(MatchingParser):
 
         entry.name = f"{search_id} {notes}"
         entry.description = f"Notes from file name: {notes}"
-        if not mainfile_split[-2] == "eqe":
+        if not mainfile_split[-2] == "eqe" and not mainfile_split[-2] == "uvvis":
             entry.data_file = os.path.basename(mainfile)
         entry.datetime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")
 

@@ -29,7 +29,7 @@ from hysprint_s import (HySprint_JVmeasurement,
                         HZB_EnvironmentMeasurement,
                         HZB_NKData)
 
-from nomad.datamodel.metainfo.eln import SolarCellEQE
+from baseclasses.solar_energy import SolarCellEQECustom
 
 
 from baseclasses.helper.archive_builder.jv_archive import get_jv_archive
@@ -86,7 +86,7 @@ class HySprintParser(MatchingParser):
             entry = HySprint_trSPVmeasurement()
         if mainfile_split[-1] == "txt" and mainfile_split[-2] == "eqe":
             header_lines = 9
-            sc_eqe = SolarCellEQE()
+            sc_eqe = SolarCellEQECustom()
             sc_eqe.eqe_data_file = os.path.basename(mainfile)
             sc_eqe.header_lines = header_lines
             entry = HySprint_EQEmeasurement()

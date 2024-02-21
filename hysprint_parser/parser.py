@@ -90,7 +90,7 @@ class HySprintParser(MatchingParser):
             sc_eqe.eqe_data_file = os.path.basename(mainfile)
             sc_eqe.header_lines = header_lines
             entry = HySprint_EQEmeasurement()
-            entry.eqe_data = [sc_eqe]
+            entry.data = sc_eqe
         if mainfile_split[-2] == "pl":
             entry = HySprint_PLmeasurement()
         if mainfile_split[-2] == "uvvis":

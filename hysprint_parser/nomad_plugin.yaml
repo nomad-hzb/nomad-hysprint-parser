@@ -2,6 +2,6 @@ plugin_type: parser
 name: parsers/hysprint_parser
 description: |
   This is a parser for hysprint data.
-mainfile_name_re: ^(.+\.?.+\.((eqe|jv|jvi|pl|pli|hy|spv|env|uvvis)\..{1,4})|.+\.nk)$
+mainfile_name_re: ^(.+\.?.+\.((eqe|jv|jvi|pl|pli|hy|spv|env|uvvis|PL|JV|PLI|EQE)\..{1,4})|.+\.nk)$
 parser_class_name: hysprint_parser.HySprintParser
 code_name: Hysprint code

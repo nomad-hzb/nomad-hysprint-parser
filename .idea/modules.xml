@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../chemical_energy/.idea/chemical_energy.iml" filepath="$PROJECT_DIR$/../chemical_energy/.idea/chemical_energy.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/hysprint.iml" filepath="$PROJECT_DIR$/.idea/hysprint.iml" />
     </modules>
   </component>

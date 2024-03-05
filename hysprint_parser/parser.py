@@ -22,7 +22,7 @@ from nomad.parsing import MatchingParser
 from hysprint_s import (HySprint_JVmeasurement,
                         HySprint_TimeResolvedPhotoluminescence,
                         HySprint_EQEmeasurement,
-                        HySprint_PLmeasurement,
+                        HySprint_PLmeasurement, HySprint_PLImaging,
                         HySprint_Measurement,
                         HySprint_UVvismeasurement,
                         HySprint_trSPVmeasurement,
@@ -57,6 +57,7 @@ import datetime
 This is a hello world style example for an example parser/converter.
 '''
 
+
 class RawFileHZB(EntryData):
     processed_archive = Quantity(
         type=Entity,
@@ -64,6 +65,7 @@ class RawFileHZB(EntryData):
             component='ReferenceEditQuantity',
         )
     )
+
 
 class HySprintParser(MatchingParser):
     def __init__(self):
@@ -93,12 +95,14 @@ class HySprintParser(MatchingParser):
             entry.data = sc_eqe
         if mainfile_split[-2] == "pl":
             entry = HySprint_PLmeasurement()
+        if mainfile_split[-2] == "pli":
+            entry = HySprint_PLImaging()
         if mainfile_split[-2] == "uvvis":
             entry = HySprint_UVvismeasurement()
             entry.data_file = [os.path.basename(mainfile)]
         if mainfile_split[-1] in ["txt"] and mainfile_split[-2] == "env":
             entry = HZB_EnvironmentMeasurement()
-        if  mainfile_split[-1] in ["nk"]:
+        if mainfile_split[-1] in ["nk"]:
             entry = HZB_NKData()
         archive.metadata.entry_name = os.path.basename(mainfile)
 

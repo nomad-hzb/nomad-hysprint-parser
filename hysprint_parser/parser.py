@@ -88,12 +88,7 @@ class HySprintParser(MatchingParser):
         if mainfile_split[-1] == "txt" and measurment_type == "spv":
             entry = HySprint_trSPVmeasurement()
         if mainfile_split[-1] == "txt" and measurment_type == "eqe":
-            header_lines = 9
-            sc_eqe = SolarCellEQECustom()
-            sc_eqe.eqe_data_file = os.path.basename(mainfile)
-            sc_eqe.header_lines = header_lines
             entry = HySprint_EQEmeasurement()
-            entry.data = sc_eqe
         if measurment_type == "pl":
             entry = HySprint_PLmeasurement()
         if measurment_type == "pli":
@@ -114,7 +109,7 @@ class HySprintParser(MatchingParser):
             entry.name = f"{search_id} {notes}"
             entry.description = f"Notes from file name: {notes}"
 
-        if not measurment_type == "eqe" and not measurment_type == "uvvis":
+        if not measurment_type == "uvvis":
             entry.data_file = os.path.basename(mainfile)
         entry.datetime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")
 

@@ -27,7 +27,7 @@ from hysprint_s import (HySprint_JVmeasurement,
                         HySprint_UVvismeasurement,
                         HySprint_trSPVmeasurement,
                         HZB_EnvironmentMeasurement,
-                        HZB_NKData)
+                        HZB_NKData, HySprint_SEM)
 
 from baseclasses.solar_energy import SolarCellEQECustom
 
@@ -89,6 +89,9 @@ class HySprintParser(MatchingParser):
             entry = HySprint_trSPVmeasurement()
         if mainfile_split[-1] == "txt" and measurment_type == "eqe":
             entry = HySprint_EQEmeasurement()
+        if mainfile_split[-1] in ["tif", "tiff"] and measurment_type.lower() == "sem":
+            entry = HySprint_SEM()
+            entry.detector_data = [os.path.basename(mainfile)]
         if measurment_type == "pl":
             entry = HySprint_PLmeasurement()
         if measurment_type == "pli":
@@ -109,7 +112,7 @@ class HySprintParser(MatchingParser):
             entry.name = f"{search_id} {notes}"
             entry.description = f"Notes from file name: {notes}"
 
-        if not measurment_type == "uvvis":
+        if not measurment_type in ["uvvis", "sem", "SEM"]:
             entry.data_file = os.path.basename(mainfile)
         entry.datetime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")
 
